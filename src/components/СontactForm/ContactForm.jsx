@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  useGetContactsQuery,
+  useAddContactMutation,
+} from 'components/redux/contactsApi';
+// import { useDispatch, useSelector } from 'react-redux';
 
-import { addContacts } from '../redux/valueSlice';
+// import { addContacts } from '../redux/valueSlice';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.contacts);
+  const { data } = useGetContactsQuery();
+
+  console.log(data);
+  const [addContact] = useAddContactMutation();
+  // const dispatch = useDispatch();
+  // const contacts = useSelector(state => state.contacts.contacts);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -23,13 +31,14 @@ export default function ContactForm() {
         return;
     }
   };
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if (e.currentTarget.elements.name.value.trim() === '') {
       return;
     }
-    const doubleContact = contacts.find(contact =>
+
+    const doubleContact = data.find(contact =>
       contact.name
         .toLowerCase()
         .includes(e.currentTarget.elements.name.value.toLowerCase())
@@ -39,8 +48,9 @@ export default function ContactForm() {
       alert(`${doubleContact.name} is already in contacts`);
       return;
     } else {
-      dispatch(addContacts({ name, number }));
+      await addContact({ name, number });
     }
+
     // contacts.find(contact =>
     //   contact.name
     //     .toLowerCase()
@@ -51,7 +61,7 @@ export default function ContactForm() {
 
     // dispatch(addContacts({ name, number }));
 
-    console.log(e.currentTarget.elements.name.value);
+    // console.log(e.currentTarget.elements.name.value);
 
     reset();
   };
