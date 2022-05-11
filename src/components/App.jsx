@@ -3,6 +3,7 @@ import React from 'react';
 import ContactForm from './СontactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
+// import { useGetContactsQuery } from './redux/contactsApi';
 
 export function App() {
   return (

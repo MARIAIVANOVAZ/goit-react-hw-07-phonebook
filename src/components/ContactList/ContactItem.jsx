@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useDeleteContactMutation } from 'components/redux/contactsApi';
+
 // import { useDispatch } from 'react-redux';
 // import { deleteContact } from 'components/redux/valueSlice';
 
 const ContactItem = ({ contact: { id, name, number } }) => {
-  const [deleteContact] = useDeleteContactMutation();
   // const dispatch = useDispatch();
-
+  const [deleteContact] = useDeleteContactMutation();
   return (
     <li>
       <p>{name}:</p>
@@ -19,7 +19,7 @@ const ContactItem = ({ contact: { id, name, number } }) => {
 };
 
 ContactItem.propTypes = {
-  onDelete: PropTypes.func,
+  deleteContact: PropTypes.func,
   contact: PropTypes.object,
 };
 export default ContactItem;

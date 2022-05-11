@@ -10,6 +10,16 @@ export const contactsApi = createApi({
     getContacts: builder.query({
       query: () => `contacts`,
       providesTags: ['Contacts'],
+      // providesTags: result =>
+      //   // is result available?
+      //   result
+      //     ? // successful query
+      //       [
+      //         ...result.map(({ id }) => ({ type: 'Contacts', id })),
+      //         { type: 'Contacts', id: 'LIST' },
+      //       ]
+      //     : // an error occurred, but we still want to refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
+      //       [{ type: 'Contacts', id: 'LIST' }],
     }),
 
     addContact: builder.mutation({

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import {
   useGetContactsQuery,
   useAddContactMutation,
@@ -38,7 +39,7 @@ export default function ContactForm() {
       return;
     }
 
-    const doubleContact = data.find(contact =>
+    const doubleContact = data?.find(contact =>
       contact.name
         .toLowerCase()
         .includes(e.currentTarget.elements.name.value.toLowerCase())
@@ -49,6 +50,7 @@ export default function ContactForm() {
       return;
     } else {
       await addContact({ name, number });
+      toast.success('contact was added');
     }
 
     // contacts.find(contact =>
@@ -97,6 +99,7 @@ export default function ContactForm() {
         />
       </label>
       <button type="submit">Add contacts</button>
+      <Toaster />
     </form>
   );
 }
